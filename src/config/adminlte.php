@@ -321,38 +321,46 @@ return [
             'can' => 'manage-blog',
         ],
              
-      
         [
             'text' => 'Cadastro',
-            'icon' => 'fa-solid fa-pencil',
+            'icon' => "fas fa-edit",
             'submenu' => [
                 [
                     'text' => 'Características',
-                    'icon' => 'fa-solid fa-book',
+                    'icon' => 'fas fa-cubes',
                     'url' => '#',
                     'submenu' => [
                         [
                             'text' => 'Editora',
-                            'url' => '#',
+                            'icon' => "fas fa-store",
+                            'url' => '/editora',
+                            'active' => ['editora*'],
                         ],
                         [
                             'text' => 'Genero',
-                            'url' => '#',
+                            'icon' => "far fa-images",
+                            'url' => '/genero',
+                            'active' => ['genero*'],
                         ],
                         [
                             'text' => 'Autores',
-                            'url' => '#',
+                            'icon' => "fas fa-user-alt",
+                            'url' => '/autor',
+                            'active' => ['autor*'],
                         ],
                     ],
                 ],
                 [
                     'text' => 'Livros',
+                    'icon' => 'fas fa-book',
                     'url' => '#',
                     
                 ],
                 [
                     'text' => 'Clientes',
-                    'url' => '#',
+                    'icon' => "fas fa-user-alt",
+                    'url' => '/cliente',
+                    'active' => ['cliente*'],
                     
                 ],
                
@@ -360,9 +368,9 @@ return [
         ],
         [
             'text' => 'Locação',
-            'icon' => "fa-solid fa-book",
+            'icon' => "fas fa-exchange-alt",
             'url' => '#',
-        ]
+        ],
         
     ],
 
