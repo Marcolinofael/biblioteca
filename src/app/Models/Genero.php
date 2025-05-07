@@ -8,5 +8,8 @@ class Genero extends Model
 {
     protected $table = 'generos';
     protected $guarded = ['id'];
-    //
+    public function livro()
+    {
+        return $this->hasMany(Livro::class, 'genero_id');
+    }
 }

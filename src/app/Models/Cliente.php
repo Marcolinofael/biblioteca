@@ -8,4 +8,9 @@ class Cliente extends Model
 {
     protected $table = 'clientes';
     protected $guarded = ['id'];
+
+    public function locacao()
+    {
+        return $this->hasMany(Locacao::class, 'cliente_id');
+    }
 }

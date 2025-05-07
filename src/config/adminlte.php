@@ -157,7 +157,7 @@ return [
     'layout_fixed_sidebar' => null,
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => null,
-    'layout_dark_mode' => null,
+    'layout_dark_mode' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -353,7 +353,8 @@ return [
                 [
                     'text' => 'Livros',
                     'icon' => 'fas fa-book',
-                    'url' => '#',
+                    'url' => '/livro',
+                    'active' => ['livro*'],
                     
                 ],
                 [
@@ -369,7 +370,8 @@ return [
         [
             'text' => 'Locação',
             'icon' => "fas fa-exchange-alt",
-            'url' => '#',
+            'url' => '/locacao',
+            'active' => ['locacao*'],
         ],
         
     ],
