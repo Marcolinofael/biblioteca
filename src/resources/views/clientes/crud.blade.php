@@ -103,24 +103,63 @@
 
 <script>
 $(document).ready(function () {
-    $('#cep').on('keyup', function () {
-        let cep = $(this).val().replace(/\D/g, '');
+    // $('#cep').on('blur', function() {
+                
+            //     let cep = $('#cep').val();
 
-        if (cep.length === 8) {
-            $.getJSON(`https://viacep.com.br/ws/${cep}/json/`, function (data) {
-                if (!data.erro) {
-                    $('#logradouro').val(data.logradouro);
-                    $('#bairro').val(data.bairro);
-                    $('#cidade').val(data.localidade);
-                    $('#uf').val(data.uf);
-                } else {
-                    alert('CEP não encontrado.');
-                }
-            }).fail(function () {
-                alert('Erro ao buscar o CEP.');
+            //     $.ajax({
+            //         url: 'https://viacep.com.br/ws/' + cep + '/json/',
+            //         type: 'GET',
+            //         dataType: 'json',
+            //         success: function(data) {
+            //             if (!data.erro) {
+            //                 $('#logradouro').val(data.logradouro);
+            //                 $('#bairro').val(data.bairro);
+            //                 $('#cidade').val(data.localidade);
+            //                 $('#uf').val(data.uf);
+            //             } else {
+            //                 alert('CEP não encontrado.');
+            //             }
+            //         },
+            //         error: function() {
+            //             alert('Erro ao buscar o CEP.');
+            //         }
+            //     });
+            // });
+
+            $('#cep').on('blur', function() {
+                
+                let cep = $('#cep').val();
+
+                let data_get = {
+                    cep: cep
+                };
+
+                $.ajax({
+                    url: '/consulta-cep',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: data_get,
+                    success: function(data) {
+
+                        console.log(data);
+
+                        if (!data.erro) {
+                            $('#logradouro').val(data.logradouro);
+                            $('#bairro').val(data.bairro);
+                            $('#cidade').val(data.localidade);
+                            $('#uf').val(data.uf);
+                        } else {
+                            alert('CEP não encontrado.');
+                        }
+                    },
+                    error: function() {
+                        //alert('Erro ao buscar o CEP.');
+                    }
+                });
             });
-        }
-    });
-});
-</script>
+
+
+        });
+    </script>
 @stop

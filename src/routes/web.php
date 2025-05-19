@@ -18,4 +18,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('cliente', App\Http\Controllers\ClienteController::class);
     Route::resource('livro', App\Http\Controllers\LivroController::class);
     Route::resource('locacao', App\Http\Controllers\LocacaoController::class);
+
+    Route::get('/consulta-cep', [ClienteController::class, 'consultaCep'])->name('consulta.cep');
 });

@@ -145,14 +145,68 @@ class ClienteController extends Controller
         return view('clientes.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        $cli = Cliente::find($id);
-        $cli->delete();
+    //APIS INTERNAS
 
-        return view('clientes.index');
+    public function consultaCep(Request $request)
+    {
+        // CONSUMO DE API USANDO O GET_FILE_CONTENTS
+        // $cep = $request->input('cep');
+        // $url = "https://viacep.com.br/ws/{$cep}/json/";
+
+        // $response = file_get_contents($url);
+
+        // return response()->json(json_decode($response));
+
+
+        // CONSUMO DE API USANDO O CURL
+        // $cep = $request->input('cep');
+        // $url = "https://viacep.com.br/ws/{$cep}/json/";
+    
+        // // Inicializa o cURL
+        // $ch = curl_init();
+    
+        // // Configurações do cURL
+        // curl_setopt($ch, CURLOPT_URL, $url);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_TIMEOUT, 10); // Timeout de 10 segundos
+    
+        // // Executa a requisição
+        // $response = curl_exec($ch);
+    
+        // // Verifica se houve erro
+        // if (curl_errno($ch)) {
+        //     return response()->json(['error' => 'Erro ao consultar o CEP.'], 500);
+        // }
+    
+        // // Fecha o cURL
+        // curl_close($ch);
+
+        // // Retorna a resposta decodificada
+        // return response()->json(json_decode($response));
+
+        // CONSUMO DE API USANDO O GuzzleHttp
+
+        $cep = $request->input('cep');
+        $url = "https://viacep.com.br/ws/{$cep}/json/";
+    
+        // Inicializa o cliente Guzzle
+        $client = new Client();
+    
+        try {
+            // Faz a requisição GET
+            $response = $client->request('GET', $url);
+    
+            // Verifica o status da resposta
+            if ($response->getStatusCode() === 200) {
+                $data = json_decode($response->getBody(), true); // Decodifica o JSON
+                return response()->json($data);
+            }
+    
+            return response()->json(['error' => 'Erro ao consultar o CEP.'], $response->getStatusCode());
+        } catch (\Exception $e) {
+            // Trata erros de requisição
+            return response()->json(['error' => 'Erro ao consultar o CEP: ' . $e->getMessage()], 500);
+        }
+
     }
 }
