@@ -120,4 +120,63 @@ class AutorController extends Controller
 
         return view('autores.index');
     }
+
+
+    //APIS e APLICAÇÕES
+
+    public function insertAutor(Request $request)
+    {
+        $request->validate([            
+            'autor' => 'required',
+            'nacionalidade' => 'required',
+        ]);
+        
+        $user = Auth::user();
+
+        $autor = $request->input('autor');
+        $nacionalidade = $request->input('nacionalidade');
+
+        $edit = new Autor();
+        $edit->autor = $autor;
+        $edit->nacionalidade = $nacionalidade;
+        $edit->origin_user = $user->name;
+        $edit->last_user = $user->name;
+        $edit->save();
+
+        return response()->json(['message' => 'Autor inserido com sucesso!']);
+    }
+
+    public function updateAutor(Request $request)
+    {
+        $request->validate([            
+            'autor' => 'required',
+            'nacionalidade' => 'required',
+        ]);
+        
+        $user = Auth::user();
+
+
+        $id = $request->input('id');
+        $autor = $request->input('autor');
+        $nacionalidade = $request->input('nacionalidade');
+
+        $edit = Autor::find($id);
+        
+        $edit->autor = $autor;
+        $edit->nacionalidade = $nacionalidade;
+        $edit->last_user = $user->name;
+        $edit->update();
+
+        return response()->json(['message' => 'Autor atualizado com sucesso!']);
+    }
+
+    public function deleteAutor(Request $request)
+    {
+        $id = $request->input('id');
+
+        $edit = Autor::find($id);
+        $edit->delete();
+
+        return response()->json(['message' => 'Autor excluído com sucesso!']);
+    }
 }
